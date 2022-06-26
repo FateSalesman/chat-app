@@ -2,6 +2,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut} from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth'
+import { useCollectionData } from 'react-firebase-hooks/firestore'
 
 import SignIn from "./components/signIn/signIn";
 import ChatRoom from "./components/ChatRoom/chatroom";
@@ -44,8 +45,7 @@ function App() {
   if (user) {
     return (
       <div className="app">
-        <p>Current User: {user.email}</p>
-        <button onClick={() => {signOut(auth)}}>Log out</button>
+        <ChatRoom User={user} Auth={auth}/>
       </div>
     )
   }
