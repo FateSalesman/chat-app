@@ -1,6 +1,5 @@
 import React from "react";
-import { useCollectionData } from "react-firebase-hooks/firestore";
-import { Firestore, getFirestore, collection, query, orderBy, limit } from "firebase/firestore";
+
 
 export default function ChatBox() {
     const db = getFirestore();
@@ -10,7 +9,7 @@ export default function ChatBox() {
 
     const [messages, loading, error] = useCollectionData(q);
 
-
+    
 
 
 }
