@@ -1,11 +1,13 @@
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { signOut } from "firebase/auth";
 import { Auth } from "firebase/auth";
+import {get, child, set, ref } from "firebase/database"
 
 import SignIn from "./components/signIn/signIn";
 import ChatRoom from "./components/ChatRoom/chatroom";
+import { getDatabase } from "firebase/database";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAciRoBy5SPVhfa2WzV_kEnIjWrqB1sc_U",
@@ -26,9 +28,13 @@ const handleClick = () => {
 const app = initializeApp(firebaseConfig);
 
 const auth = getAuth(app);
+const db = getDatabase(app);
+const dbRef = ref(db);
+
 
 function App() {
   const [user, loading, error] = useAuthState(auth);
+
 
   if (loading) {
     return (
@@ -57,7 +63,7 @@ function App() {
   } else {
     return (
       <div className="app">
-        <SignIn Auth={auth} />
+        <SignIn Auth={auth} App={app}/>
       </div>
     );
   }
